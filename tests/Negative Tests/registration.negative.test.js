@@ -19,7 +19,7 @@ test.describe('Registration - Negative Scenarios.', () => {
       await pages.registrationPage.fillSignupFormInvalid('TestUserirGcTZ', 'user_1752002972197@test.com');
       await assertions.registrationAssert.verifySignUpErrorShown();
     } catch (e) {
-      console.error('❌ Negative - Registration test failed:', e);
+      console.error('❌ Registration with already registered email test failed:', e);
       throw e;
     }
   });
@@ -36,7 +36,7 @@ test.describe('Registration - Negative Scenarios.', () => {
       await assertions.registrationAssert.shouldBeOnSignUpPage();
       await assertions.registrationAssert.verifyEmailFieldIsDisabled();
     } catch (e) {
-      console.error('❌ Negative - Registration test failed:', e);
+      console.error('❌ Email field is not editable after being pre-populated on signup test failed:', e);
       throw e;
     }
   });

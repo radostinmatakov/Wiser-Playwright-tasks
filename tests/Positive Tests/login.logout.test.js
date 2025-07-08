@@ -10,21 +10,34 @@ test.describe('Test Login and Logout Functionality.', () => {
     assertions = setup.assertions;
   });
 
-  test('Validate the login and logout processes. Successful Login/Logout.', async () => {
+  test('Validate Successful Login.', async () => {
     try {
-        await pages.homePage.navigate();
-        await pages.homePage.goToLogin();
-        await assertions.loginAssert.shouldBeOnLoginPage(); 
+      await pages.homePage.navigate();
+      await pages.homePage.goToLogin();
+      await assertions.loginAssert.shouldBeOnLoginPage(); 
 
-        await pages.loginPage.login('user_1752002972197@test.com', '2BPn)$yY&8Zr');
-        await assertions.loginAssert.verifyLoggedIn('TestUserirGcTZ');
-
-        await pages.loginPage.logout();
-        await assertions.loginAssert.verifyLoggedOut();
-        await assertions.loginAssert.shouldBeOnLoginPage();
+      await pages.loginPage.login('user_1752002972197@test.com', '2BPn)$yY&8Zr');
+      await assertions.loginAssert.verifyLoggedIn('TestUserirGcTZ');
     } catch (e) {
-        console.error('❌ Login/Logout test failed:', e);
-        throw e;
+      console.error('❌ Login test failed:', e);
+      throw e;
+    }
+  });
+
+  test('Validate Successful Logout.', async () => {
+    try {
+      // Pre-conditions for Logout test
+      await pages.homePage.navigate();
+      await pages.homePage.goToLogin();
+      await assertions.loginAssert.shouldBeOnLoginPage(); 
+      await pages.loginPage.login('user_1752002972197@test.com', '2BPn)$yY&8Zr');
+
+      await pages.loginPage.logout();
+      await assertions.loginAssert.verifyLoggedOut();
+      await assertions.loginAssert.shouldBeOnLoginPage();
+    } catch (e) {
+      console.error('❌ Logout test failed:', e);
+      throw e;
     }
   });
 });

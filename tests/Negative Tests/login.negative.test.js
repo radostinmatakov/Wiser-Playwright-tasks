@@ -12,14 +12,14 @@ test.describe('Login - Negative Scenarios.', () => {
 
   test('Login fails with incorrect credentials.', async () => {
     try {
-        await pages.homePage.navigate('/login');
-        await assertions.loginAssert.shouldBeOnLoginPage(); 
+      await pages.homePage.navigate('/login');
+      await assertions.loginAssert.shouldBeOnLoginPage(); 
 
-        await pages.loginPage.login('invalid@mail.com', 'wrongpassword');
-        await assertions.loginAssert.verifyLoginErrorMessage();
+      await pages.loginPage.login('invalid@mail.com', 'wrongpassword');
+      await assertions.loginAssert.verifyLoginErrorMessage();
     } catch (e) {
-        console.error('❌ Negative - Login test failed:', e);
-        throw e;
+      console.error('❌ Negative - Login test failed:', e);
+      throw e;
     }
   });
 });

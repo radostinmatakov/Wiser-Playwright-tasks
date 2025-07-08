@@ -3,7 +3,7 @@ const BasePage = require('./basePage');
 class RegistrationPage extends BasePage {
   constructor(page) {
     super(page);
-    // Locators used in Positive Tests - Happy path
+    // Locators used in all tests
     this.nameInput = page.locator('input[data-qa="signup-name"]');
     this.emailInput = page.locator('input[data-qa="signup-email"]');
     this.signupButton = page.locator('button[data-qa="signup-button"]');
