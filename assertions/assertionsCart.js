@@ -37,7 +37,7 @@ class CartAsserts {
       actualName !== expectedItem.name ||
       actualPrice !== expectedItem.price ||
       actualQuantity !== String(expectedItem.quantity) ||
-      actualTotalPrice !== expectedItem.totalPrice // Check if actualTotalPrice matches expectedItem.totalPrice
+      actualTotalPrice !== expectedItem.totalPrice 
     ) {
       throw new Error(`Invalid cart data: expected ${JSON.stringify(expectedItem)}, but got { name: "${actualName}", price: "${actualPrice}", quantity: "${actualQuantity}", totalPrice: "${actualTotalPrice}" }`);
     }
