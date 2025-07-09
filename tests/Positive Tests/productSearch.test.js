@@ -16,8 +16,13 @@ test.describe('Search and Add a Product to Cart.', () => {
       await pages.homePage.goToProducts(); 
       await assertions.productAssert.shouldBeOnProductPage();                   
 
-      await pages.productPage.searchProduct('Pure Cotton V-Neck T-Shirt');
-      await assertions.productAssert.verifyProductVisible();  
+      const allProducts = await pages.productPage.getAllProductNames();
+      const randomIndex = Math.floor(Math.random() * allProducts.length);
+      const randomProduct = allProducts[randomIndex];
+      await pages.productPage.searchProduct(randomProduct);
+      await assertions.productAssert.verifyProductVisible(randomProduct);  
+
+      const productInfo = await assertions.cartAssert.getProductInfoByName(randomProduct);
 
       await pages.productPage.addToCart();
       await assertions.productAssert.shouldBeOnProductDetailsPage();  
@@ -25,8 +30,12 @@ test.describe('Search and Add a Product to Cart.', () => {
       await assertions.productAssert.verifyAddToCartConfirmationMessage();
 
       await pages.productPage.goToCart();
-      await assertions.cartAssert.shouldBeOnCartPage();       
-      await assertions.cartAssert.verifyCartItem({name: 'Pure Cotton V-Neck T-Shirt',price: 'Rs. 1299',quantity: 1,}); 
+      await assertions.cartAssert.shouldBeOnCartPage();
+      
+      const quantity = 1;
+      const numericPrice = parseInt(productInfo.price.replace(/[^\d]/g, ''), 10);
+      const totalPrice = `Rs. ${numericPrice * quantity}`;
+      await assertions.cartAssert.verifyCartItem({name: productInfo.name, price: productInfo.price, quantity: quantity, totalPrice: totalPrice }); 
     } catch (e) {
       console.error('❌ Add Product test failed:', e);
       throw e;

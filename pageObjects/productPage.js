@@ -9,9 +9,15 @@ class ProductPage extends BasePage {
     this.viewProduct = page.locator("//a[normalize-space()='View Product']");
     this.addToCartButton = page.locator("//button[normalize-space()='Add to cart']");
     this.viewCart = page.locator("//p[@class='text-center']//a");
+    this.productNames = page.locator('.productinfo.text-center p');
   }
 
-   // Methods used for Positive Tests - Happy path
+  // Methods used for Positive Tests - Happy path
+  async getAllProductNames() {
+    const products = await this.productNames.allTextContents(); 
+    return products.map(name => name.trim()).filter(name => name.length > 0);
+  }
+  
   async searchProduct(product) {
     await this.searchBar.fill(product);
     await this.submitSearch.click();

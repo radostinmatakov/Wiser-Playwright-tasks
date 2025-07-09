@@ -7,6 +7,7 @@ class ProductSearchAsserts {
     this.searchResultTitles = page.locator("//div[@class='productinfo text-center']//p[contains(text(),'Pure')]");
     this.addedToCart = page.locator('h4.modal-title:has-text("Added!")');
     this.addedConfirmationMessage = page.locator('p.text-center:has-text("Your product has been added to cart.")');
+    this.searchResultTitles = page.locator('.productinfo.text-center p');
   }
 
   async shouldBeOnProductPage() {
@@ -18,9 +19,11 @@ class ProductSearchAsserts {
   }
 
   // Methods used for Positive Tests - Happy path
-  async verifyProductVisible() {
-    if (!(await this.searchResultTitles.isVisible())) {
-      throw new Error(`Product not visible in search results.`);
+  async verifyProductVisible(expectedProductName) {
+    const titles = await this.searchResultTitles.allTextContents();
+    const visibleProduct = titles.map(t => t.trim()).includes(expectedProductName);
+    if (!visibleProduct) {
+      throw new Error(`Expected product "${expectedProductName}" not found in search results: [${titles.join(', ')}]`);
     }
   }
 

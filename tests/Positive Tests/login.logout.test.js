@@ -10,6 +10,18 @@ test.describe('Test Login and Logout Functionality.', () => {
     assertions = setup.assertions;
   });
 
+  test.afterEach(async ({ page }) => {
+    try {
+      const logoutLink = page.locator('a[href="/logout"]');
+      if (await logoutLink.isVisible().catch(() => false)) {
+        await logoutLink.click();
+      }
+      await page.context().clearCookies();
+    } catch (e) {
+      console.warn('⚠️ Teardown failed or unnecessary:', e.message);
+    }
+  });
+
   test('Validate Successful Login.', async () => {
     try {
       await pages.homePage.navigate();
