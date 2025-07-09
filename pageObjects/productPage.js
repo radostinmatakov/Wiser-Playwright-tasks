@@ -3,21 +3,30 @@ const BasePage = require('./basePage');
 class ProductPage extends BasePage {
   constructor(page) {
     super(page);
-    this.searchResultTitles = page.locator('.productinfo p');
-    this.firstProduct = page.locator('.productinfo').first();
-    this.addToCartButton = page.locator('a:has-text("Add to cart")').first();
-    this.continueShopping = page.locator('button:has-text("Continue Shopping")');
+    this.searchBar = page.locator('input[id="search_product"]');
+    this.submitSearch = page.locator("button[id='submit_search']");
+    this.viewProduct = page.locator("//a[normalize-space()='View Product']");
+    this.addToCartButton = page.locator("//button[normalize-space()='Add to cart']");
+    this.viewCart = page.locator("//p[@class='text-center']//a");
   }
 
-  async verifySearchResults(keyword) {
-    const titles = await this.searchResultTitles.allTextContents();
-    return titles.some(title => title.toLowerCase().includes(keyword.toLowerCase()));
+   // Methods used for Positive Tests - Happy path
+  async searchProduct(product) {
+    await this.searchBar.fill(product);
+    await this.submitSearch.click();
   }
 
-  async addFirstProductToCart() {
-    await this.firstProduct.hover();
+  async addToCart() {
+    await this.viewProduct.click();
+    await this.addToCartButton.waitFor({ state: 'visible' });  
+    while (!(await this.addToCartButton.isEnabled())) {
+      await this.page.waitForTimeout(100);
+    }
     await this.addToCartButton.click();
-    await this.continueShopping.click();
+  }
+
+  async goToCart() {
+    await this.viewCart.click();
   }
 }
 

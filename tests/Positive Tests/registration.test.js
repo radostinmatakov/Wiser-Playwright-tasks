@@ -11,7 +11,7 @@ test.describe('Validate User Registration Process.', () => {
     assertions = setup.assertions;
   });
 
-  test('Test the user registration flow. Successful Registration', async () => {
+  test('Test the user registration flow. Successful Registration.', async () => {
     try {
       const randomEmail = DataGenerator.generateRandomEmail();
       const randomPassword = DataGenerator.generateRandomPassword();
