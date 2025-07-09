@@ -12,10 +12,10 @@ test.describe('Products and Cart - Negative Scenarios.', () => {
 
   test('Quantity field is not editable after being pre-populated on Add Product to Cart.', async () => {
     try {
+      // Pre-conditions for Add Product test
       await pages.homePage.navigate('/products');                   
       await assertions.productAssert.shouldBeOnProductPage();                   
       await pages.productPage.searchProduct('Pure Cotton V-Neck T-Shirt');
-
       await pages.productPage.addToCart();
       await assertions.productAssert.shouldBeOnProductDetailsPage();  
       await assertions.productAssert.verifyProductSuccessfullyAdded();  

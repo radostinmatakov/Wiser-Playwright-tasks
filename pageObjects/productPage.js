@@ -3,6 +3,7 @@ const BasePage = require('./basePage');
 class ProductPage extends BasePage {
   constructor(page) {
     super(page);
+    // Locators used in all tests
     this.searchBar = page.locator('input[id="search_product"]');
     this.submitSearch = page.locator("button[id='submit_search']");
     this.viewProduct = page.locator("//a[normalize-space()='View Product']");

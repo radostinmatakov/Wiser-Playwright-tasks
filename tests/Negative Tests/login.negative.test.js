@@ -18,7 +18,7 @@ test.describe('Login - Negative Scenarios.', () => {
       await pages.loginPage.login('invalid@mail.com', 'wrongpassword');
       await assertions.loginAssert.verifyLoginErrorMessage();
     } catch (e) {
-      console.error('❌ Negative - Login test failed:', e);
+      console.error('❌ Login fails with incorrect credentials test failed:', e);
       throw e;
     }
   });

@@ -36,8 +36,6 @@ class ProductSearchAsserts {
       throw new Error('Confirmation message for added product is not visible!');
     }
   }
-  // Methods used for Negative Tests
-
 }
 
 module.exports = ProductSearchAsserts;
